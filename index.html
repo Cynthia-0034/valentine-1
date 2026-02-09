@@ -1,0 +1,1782 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Cynthia Makes Magic ✨ — Valentine Websites 💘</title>
+  <meta name="description" content="Cynthia Makes Magic — premium animated Valentine proposal websites + romantic love websites (digital gifts)." />
+  <meta name="theme-color" content="#ff3b7a" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root{
+      --bg0:#0a0612;
+      --bg1:#120820;
+      --card:rgba(255,255,255,.07);
+      --card2:rgba(255,255,255,.10);
+      --stroke:rgba(255,255,255,.16);
+      --txt:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --muted2:rgba(255,255,255,.55);
+      --pink:#ff3b7a;
+      --rose:#ff6aa2;
+      --peach:#ffb3c8;
+      --gold:#ffd36b;
+      --mint:#49f2c2;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 24px;
+      --radius2: 18px;
+      --max: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--txt);
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      overflow-x:hidden;
+      background:
+        radial-gradient(1000px 700px at 20% 10%, rgba(255,59,122,.35), transparent 65%),
+        radial-gradient(900px 600px at 85% 30%, rgba(255,211,107,.25), transparent 70%),
+        radial-gradient(900px 700px at 50% 110%, rgba(73,242,194,.18), transparent 65%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+    }
+
+    /* ---------- Ambient background ---------- */
+    .noise{
+      position:fixed; inset:0;
+      pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
+      opacity:.45;
+    }
+    .glow-orbs{
+      position:fixed; inset:0;
+      pointer-events:none;
+      filter: blur(40px);
+      opacity:.75;
+    }
+    .orb{
+      position:absolute;
+      width:320px; height:320px;
+      border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), rgba(255,59,122,.20), transparent 70%);
+      animation: drift 18s ease-in-out infinite;
+    }
+    .orb:nth-child(1){left:-90px; top:120px; animation-duration:22s; transform:scale(1.1)}
+    .orb:nth-child(2){right:-120px; top:60px; animation-duration:26s; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.5), rgba(255,211,107,.20), transparent 70%);}
+    .orb:nth-child(3){left:45%; bottom:-170px; animation-duration:28s; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.45), rgba(73,242,194,.18), transparent 70%);}
+    @keyframes drift{
+      0%{ transform: translate3d(0,0,0) scale(1); }
+      50%{ transform: translate3d(40px,-28px,0) scale(1.06); }
+      100%{ transform: translate3d(0,0,0) scale(1); }
+    }
+
+    /* Floating hearts */
+    .hearts{
+      position:fixed; inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      opacity:.95;
+    }
+    .heart{
+      position:absolute;
+      font-size:18px;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
+      animation: floatUp linear infinite;
+      will-change: transform, opacity;
+    }
+    @keyframes floatUp{
+      0%{ transform: translateY(120vh) translateX(0) rotate(0deg) scale(.9); opacity:0; }
+      10%{ opacity: .9; }
+      100%{ transform: translateY(-20vh) translateX(60px) rotate(28deg) scale(1.25); opacity:0; }
+    }
+
+    /* ---------- Layout ---------- */
+    .wrap{max-width:var(--max); margin:0 auto; padding:20px;}
+    header{
+      position:sticky; top:0;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(10,6,18,.72), rgba(10,6,18,.35));
+      border-bottom:1px solid rgba(255,255,255,.10);
+      z-index:30;
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none; color:var(--txt);
+      min-width: 230px;
+    }
+    .logo{
+      width:36px; height:36px; border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.7), rgba(255,59,122,.35), rgba(255,211,107,.25));
+      box-shadow: 0 14px 40px rgba(255,59,122,.18);
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.16);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:before{
+      content:"";
+      position:absolute; inset:-40%;
+      background: conic-gradient(from 180deg, rgba(255,59,122,.0), rgba(255,59,122,.55), rgba(255,211,107,.55), rgba(73,242,194,.45), rgba(255,59,122,.0));
+      animation: spin 5.5s linear infinite;
+    }
+    .logo span{ position:relative; font-size:16px; color:rgba(255,255,255,.95); }
+    @keyframes spin{ to{ transform: rotate(360deg);} }
+
+    .brand b{font-family:"Playfair Display", serif; letter-spacing:.2px;}
+    .brand small{display:block; color:var(--muted2); font-weight:600; font-size:12px; margin-top:2px;}
+
+    .navlinks{display:flex; gap:18px; align-items:center;}
+    .navlinks a{
+      color:var(--muted); text-decoration:none; font-weight:800; font-size:13px;
+      opacity:.9;
+    }
+    .navlinks a:hover{color:var(--txt);}
+
+    .btn{
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color:var(--txt);
+      padding:11px 14px;
+      border-radius:14px;
+      font-weight:900;
+      font-size:13px;
+      cursor:pointer;
+      transition:.2s ease;
+      display:inline-flex; gap:10px; align-items:center;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      text-decoration:none;
+      user-select:none;
+      border:none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
+    .btn.primary{
+      border: none;
+      background: linear-gradient(90deg, rgba(255,59,122,.92), rgba(255,106,162,.88));
+      box-shadow: 0 18px 44px rgba(255,59,122,.20);
+    }
+    .btn.primary:hover{ filter:saturate(1.08); transform: translateY(-2px); }
+    .btn.ghost{ background: transparent; }
+
+    /* Mobile hamburger */
+    .hamburger{
+      display:none;
+      width:44px; height:44px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      transition:.2s ease;
+    }
+    .hamburger:hover{transform: translateY(-1px); background: rgba(255,255,255,.10);}
+    .hamburger i{font-size:16px;}
+
+    .mobileMenu{
+      display:none;
+      border-top:1px solid rgba(255,255,255,.10);
+      padding:12px 0 14px;
+      animation: drop .22s ease-out;
+    }
+    @keyframes drop{
+      from{opacity:0; transform: translateY(-8px);}
+      to{opacity:1; transform: translateY(0);}
+    }
+    .mobileMenu a{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 0;
+      color:var(--txt);
+      text-decoration:none;
+      font-weight:900;
+      border-bottom:1px dashed rgba(255,255,255,.10);
+    }
+    .mobileMenu a span{color:var(--muted2); font-weight:800; font-size:12px;}
+
+    /* ---------- Pages (single-file "routing") ---------- */
+    .page{display:none;}
+    .page.active{display:block;}
+
+    /* ---------- Hero ---------- */
+    .hero{padding:44px 0 26px;}
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:26px;
+      align-items:stretch;
+    }
+    @media (max-width: 950px){
+      .heroGrid{grid-template-columns:1fr; }
+      .navlinks{display:none;}
+      .hamburger{display:flex;}
+    }
+
+    .headline{
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border-radius: var(--radius);
+      padding:28px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .sparkleRing{
+      position:absolute; inset:-120px;
+      background:
+        radial-gradient(circle at 25% 40%, rgba(255,211,107,.18), transparent 55%),
+        radial-gradient(circle at 75% 30%, rgba(255,59,122,.22), transparent 50%),
+        radial-gradient(circle at 55% 80%, rgba(73,242,194,.16), transparent 55%);
+      filter: blur(8px);
+      animation: pulse 6s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes pulse{
+      0%,100%{ transform: scale(1); opacity: .85; }
+      50%{ transform: scale(1.06); opacity: 1; }
+    }
+
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color:var(--muted);
+      font-weight:900;
+      font-size:12px;
+      margin-bottom:14px;
+      position:relative;
+    }
+    .kicker i{ color: var(--gold); }
+
+    h1{
+      font-family:"Playfair Display", serif;
+      font-size:52px;
+      line-height:1.02;
+      margin:10px 0 12px;
+      letter-spacing:-.8px;
+    }
+    .sub{
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.7;
+      margin:0 0 18px;
+      max-width: 60ch;
+      position:relative;
+    }
+    .heroActions{
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top:16px;
+      position:relative;
+    }
+    .stats{
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top:18px;
+    }
+    .pill{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      border-radius:16px;
+      padding:12px 12px;
+      min-width: 160px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+    }
+    .pill b{display:block; font-size:14px;}
+    .pill span{color:var(--muted2); font-weight:800; font-size:12px;}
+
+    /* ---------- Countdown Timer ---------- */
+    .countdown-section {
+      margin: 30px 0 40px;
+    }
+    .countdown-container {
+      background: linear-gradient(135deg, rgba(255,59,122,.1), rgba(255,211,107,.08));
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: var(--radius);
+      padding: 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+    .countdown-container:before {
+      content:"";
+      position:absolute; inset:-50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,59,122,.15), transparent 60%),
+                  radial-gradient(circle at 70% 70%, rgba(255,211,107,.12), transparent 60%);
+      filter: blur(20px);
+      pointer-events:none;
+      animation: pulse 8s ease-in-out infinite;
+    }
+    .countdown-container > * {position:relative;}
+    .countdown-title {
+      font-family:"Playfair Display", serif;
+      font-size: 24px;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, var(--rose), var(--gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .countdown-subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .countdown-timer {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 80px;
+    }
+    .countdown-number {
+      font-size: 42px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--rose), var(--gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1;
+      text-shadow: 0 10px 20px rgba(0,0,0,.3);
+    }
+    .countdown-label {
+      font-size: 12px;
+      color: var(--muted2);
+      font-weight: 800;
+      margin-top: 5px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .countdown-note {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 20px;
+      font-weight: 700;
+    }
+
+    /* ---------- Demo card ---------- */
+    .demo{
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      position:relative;
+      padding:18px;
+    }
+    .phone{
+      border-radius: 26px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.25);
+      overflow:hidden;
+      position:relative;
+      height: 430px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    }
+    .phoneTop{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:12px 14px;
+      font-weight:900; font-size:12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      color:rgba(255,255,255,.8);
+      background: rgba(255,255,255,.04);
+    }
+    .screen{
+      padding:16px;
+      height: calc(430px - 46px);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      position:relative;
+    }
+    .screen:before{
+      content:"";
+      position:absolute; inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,59,122,.10), transparent 60%),
+                  radial-gradient(circle at 80% 35%, rgba(255,211,107,.10), transparent 60%),
+                  radial-gradient(circle at 55% 85%, rgba(73,242,194,.08), transparent 60%);
+      filter: blur(14px);
+      animation: drift 16s ease-in-out infinite;
+      pointer-events:none;
+    }
+    .screen > *{position:relative;}
+    .miniH1{
+      font-family:"Playfair Display", serif;
+      font-size:26px; margin:6px 0 6px;
+    }
+    .miniP{color:var(--muted); font-size:13px; line-height:1.6; margin:0 0 14px;}
+    .choices{display:flex; gap:10px; flex-wrap:wrap;}
+    .choice{
+      flex:1;
+      min-width: 120px;
+      padding:12px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      font-weight:900;
+      transition:.18s ease;
+      text-align:center;
+      user-select:none;
+    }
+    .choice:hover{ transform: translateY(-2px); background: rgba(255,255,255,.10); }
+    .choice.yes{ border-color: rgba(255,59,122,.35); }
+    .choice.no{ border-color: rgba(255,211,107,.30); }
+    .tiny{
+      font-size:12px; color:var(--muted2); font-weight:800; margin-top:10px;
+      display:flex; justify-content:space-between; align-items:center;
+      gap:10px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      background: rgba(255,59,122,.12);
+      border: 1px solid rgba(255,59,122,.25);
+      color: rgba(255,255,255,.92);
+      font-weight:900;
+      font-size:11px;
+    }
+
+    /* ---------- Sections ---------- */
+    section{padding:18px 0 34px;}
+    .sectionTitle{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:12px;
+      margin:18px 0 14px;
+    }
+    .sectionTitle h2{
+      margin:0;
+      font-size:26px;
+      font-family:"Playfair Display", serif;
+      letter-spacing:-.2px;
+    }
+    .sectionTitle p{margin:0; color:var(--muted); font-weight:800; font-size:13px;}
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 900px){ .grid3{grid-template-columns:1fr; } }
+
+    .card{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.25);
+      position:relative;
+      overflow:hidden;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:-70%;
+      background: conic-gradient(from 180deg, rgba(255,59,122,.0), rgba(255,59,122,.22), rgba(255,211,107,.18), rgba(73,242,194,.12), rgba(255,59,122,.0));
+      animation: spin 10s linear infinite;
+      opacity:.55;
+      pointer-events:none;
+    }
+    .card > *{position:relative;}
+    .card h3{margin:10px 0 6px; font-size:16px;}
+    .card p{margin:0; color:var(--muted); font-size:13px; line-height:1.65;}
+    .icon{
+      width:44px; height:44px;
+      border-radius:16px;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);
+      font-size:18px;
+    }
+
+    /* Testimonials */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .testimonial-card {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.25);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .testimonial-card:before {
+      content: "";
+      position: absolute;
+      inset: -70%;
+      background: conic-gradient(from 180deg, rgba(255,59,122,.0), rgba(255,59,122,.15), rgba(255,211,107,.12), rgba(73,242,194,.08), rgba(255,59,122,.0));
+      animation: spin 12s linear infinite;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .testimonial-card > * {
+      position: relative;
+    }
+    .testimonial-emoji {
+      font-size: 40px;
+      margin-bottom: 15px;
+      display: block;
+    }
+    .testimonial-text {
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.6;
+      margin: 0 0 15px;
+      font-size: 14px;
+    }
+    .testimonial-author {
+      color: var(--gold);
+      font-weight: bold;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    /* Process Steps */
+    .process-steps {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+    .process-steps:before {
+      content: "";
+      position: absolute;
+      top: 24px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: rgba(255,255,255,.1);
+      z-index: 1;
+    }
+    .step {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      min-width: 200px;
+      margin-bottom: 30px;
+    }
+    .step-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--rose), var(--pink));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 18px;
+      margin: 0 auto 15px;
+      border: 3px solid var(--bg1);
+      box-shadow: 0 8px 20px rgba(255,59,122,.3);
+    }
+    .step-title {
+      font-weight: 900;
+      font-size: 15px;
+      margin-bottom: 8px;
+      color: var(--rose);
+    }
+    .step-desc {
+      font-size: 13px;
+      color: var(--muted2);
+      max-width: 200px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* Pricing */
+    .price{display:flex; align-items:baseline; gap:8px; margin:12px 0 10px;}
+    .price b{font-size:28px;}
+    .price span{color:var(--muted2); font-weight:900; font-size:12px;}
+    ul{padding-left:18px; margin:10px 0 0;}
+    li{color:var(--muted); font-size:13px; line-height:1.65; margin:6px 0;}
+    .tag{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:7px 10px;
+      border-radius:999px;
+      background: rgba(255,211,107,.10);
+      border:1px solid rgba(255,211,107,.22);
+      font-size:11px; font-weight:900;
+      color: rgba(255,255,255,.90);
+    }
+
+    /* Payment Methods */
+    .payment-methods {
+      display: flex;
+      gap: 10px;
+      margin-top: 25px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .payment-method {
+      padding: 10px 15px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .payment-method i {
+      color: var(--mint);
+    }
+
+    /* Guarantee Badge */
+    .guarantee-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 15px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(73,242,194,.15), rgba(255,211,107,.1));
+      border: 1px solid rgba(73,242,194,.25);
+      color: var(--txt);
+      font-weight: 900;
+      font-size: 13px;
+      margin: 20px 0;
+    }
+
+    /* CTA */
+    .cta{
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,59,122,.14), rgba(255,255,255,.05));
+      border-radius: var(--radius);
+      padding:22px;
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+      position:relative;
+      overflow:hidden;
+    }
+    .cta:before{
+      content:"";
+      position:absolute; inset:-60%;
+      background: radial-gradient(circle at 35% 35%, rgba(255,59,122,.22), transparent 55%),
+                  radial-gradient(circle at 75% 45%, rgba(255,211,107,.20), transparent 55%);
+      filter: blur(12px);
+      pointer-events:none;
+      animation: pulse 7s ease-in-out infinite;
+    }
+    .cta > *{position:relative;}
+    .cta h3{margin:0; font-family:"Playfair Display", serif; font-size:24px;}
+    .cta p{margin:6px 0 0; color:var(--muted); font-weight:800; max-width:60ch; font-size:13px; line-height:1.6;}
+
+    footer{
+      padding:28px 0 40px;
+      color:var(--muted2);
+      font-weight:800;
+      font-size:12px;
+      text-align:center;
+    }
+
+    /* Modal */
+    .modalBack{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.62);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:99;
+      padding:16px;
+    }
+    .modal{
+      max-width: 720px;
+      width: 100%;
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(18,8,32,.88);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .modalHead{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:14px 16px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      gap:10px;
+    }
+    .modalHead b{font-family:"Playfair Display", serif; font-size:16px;}
+    .modalBody{padding:16px;}
+    .formGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 700px){ .formGrid{grid-template-columns:1fr;} }
+    .field{display:flex; flex-direction:column; gap:8px;}
+    label{font-size:12px; font-weight:900; color:rgba(255,255,255,.85);}
+    input, textarea, select{
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--txt);
+      padding:12px 12px;
+      font-weight:800;
+      outline:none;
+    }
+    textarea{min-height:110px; resize:vertical;}
+    input::placeholder, textarea::placeholder{color:rgba(255,255,255,.45)}
+    .modalFoot{
+      padding:14px 16px;
+      display:flex; justify-content:space-between; align-items:center;
+      gap:10px; flex-wrap:wrap;
+      border-top:1px solid rgba(255,255,255,.10);
+      color:var(--muted2);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    /* WhatsApp floating button */
+    .waFloat{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      z-index:120;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      text-decoration:none;
+    }
+    .waBubble{
+      display:none;
+      padding:10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(18,8,32,.75);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 44px rgba(0,0,0,.35);
+      color: rgba(255,255,255,.92);
+      font-weight:900;
+      font-size:12px;
+      white-space:nowrap;
+      animation: pop .22s ease-out;
+    }
+    @keyframes pop{from{opacity:0; transform: translateY(6px);} to{opacity:1; transform: translateY(0);} }
+    .waBtn{
+      width:54px; height:54px;
+      border-radius: 18px;
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.16);
+      background: linear-gradient(180deg, rgba(73,242,194,.22), rgba(255,255,255,.06));
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      color: rgba(255,255,255,.95);
+      font-size:20px;
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+    }
+    .waBtn:before{
+      content:"";
+      position:absolute; inset:-70%;
+      background: conic-gradient(from 180deg, rgba(73,242,194,.0), rgba(73,242,194,.28), rgba(255,59,122,.18), rgba(255,211,107,.14), rgba(73,242,194,.0));
+      animation: spin 8s linear infinite;
+      opacity:.75;
+      pointer-events:none;
+    }
+    .waBtn i{position:relative;}
+    .waBtn:hover{transform: translateY(-2px);}
+
+    @media (min-width: 520px){
+      .waBubble{display:inline-flex;}
+    }
+
+    /* Reveal animations */
+    .reveal{ opacity:0; transform: translateY(16px); transition: .7s cubic-bezier(.2,.8,.2,1); }
+    .reveal.show{ opacity:1; transform: translateY(0); }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important; transition:none !important;}
+      .hearts{display:none;}
+    }
+
+    /* --- Mobile polish --- */
+    @media (max-width: 950px){
+      .process-steps:before {display: none;}
+      .process-steps {gap: 30px;}
+      .step {min-width: 150px;}
+    }
+
+    @media (max-width: 520px){
+      .wrap{padding:16px;}
+      header .wrap{padding:0 16px;}
+      .nav{padding:12px 0;}
+      .brand b{font-size:14px;}
+      .brand small{display:none;}
+
+      .headline{padding:18px;}
+      h1{font-size:36px; letter-spacing:-.6px;}
+      .sub{font-size:14px;}
+
+      .hero{padding:24px 0 12px;}
+      .heroActions .btn{flex:1; justify-content:center;}
+      .stats .pill{min-width:unset; flex:1;}
+
+      .demo{padding:14px;}
+      .phone{height:380px;}
+      .screen{height: calc(380px - 46px); padding:14px;}
+
+      .countdown-container {padding: 20px;}
+      .countdown-number {font-size: 32px;}
+      .countdown-unit {min-width: 70px;}
+      .countdown-title {font-size: 20px;}
+
+      .grid3{grid-template-columns:1fr;}
+      .card{padding:16px;}
+      .cta{padding:16px;}
+      .cta h3{font-size:20px;}
+      
+      .step {min-width: 100%;}
+      .process-steps {flex-direction: column; gap: 25px;}
+    }
+    @media (max-width: 380px){
+      h1{font-size:32px;}
+      .phone{height:350px;}
+      .countdown-number {font-size: 28px;}
+      .countdown-unit {min-width: 60px;}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="glow-orbs" aria-hidden="true">
+    <div class="orb"></div><div class="orb"></div><div class="orb"></div>
+  </div>
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="#/" aria-label="Home">
+          <div class="logo"><span>✨</span></div>
+          <div>
+            <b>Cynthia Makes Magic</b>
+            <small>Valentine Proposal + Love Websites 💘</small>
+          </div>
+        </a>
+
+        <nav class="navlinks" aria-label="Main navigation">
+          <a href="#/#how">How it works</a>
+          <a href="#/#packages">Packages</a>
+          <a href="#/#testimonials">Success Stories</a>
+          <a href="#/love-demo">Demo</a>
+        </nav>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <button class="btn ghost" id="sparkBtn" title="Sparkles">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Sparkle
+          </button>
+          <button class="btn primary" id="openModalBtn">
+            <i class="fa-solid fa-heart"></i>
+            Book now
+          </button>
+
+          <button class="hamburger" id="hamburger" aria-label="Open menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="mobileMenu" id="mobileMenu">
+        <a href="#/#how"><span>Step-by-step</span> How it works</a>
+        <a href="#/#packages"><span>Pricing</span> Packages</a>
+        <a href="#/#testimonials"><span>Reviews</span> Success Stories</a>
+        <a href="#/love-demo"><span>Preview</span> Love Demo</a>
+        <a href="#/" id="closeMenuLink"><span>Close</span> Hide menu</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE 1: Landing -->
+  <main id="page-landing" class="page active">
+    <div class="wrap hero">
+      <div class="heroGrid">
+        <div class="headline reveal">
+          <div class="sparkleRing" aria-hidden="true"></div>
+
+          <div class="kicker">
+            <i class="fa-solid fa-crown"></i>
+            Premium • Animated • Personalized • Shareable Link
+          </div>
+
+          <h1>
+            A Valentine website so good…
+            <span style="background:linear-gradient(90deg,var(--rose),var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent;">
+              they'll replay it.
+            </span>
+          </h1>
+
+          <p class="sub">
+            I create luxury Valentine websites: proposals (the big question) AND romantic "love websites"
+            (digital gift websites) with your story, photos, cute animations, and a surprise reveal.
+          </p>
+
+          <div class="heroActions">
+            <button class="btn primary" id="heroCta">
+              <i class="fa-solid fa-bolt"></i>
+              Get your website today
+            </button>
+            <a class="btn" href="#/love-demo">
+              <i class="fa-solid fa-play"></i>
+              Open Love Demo
+            </a>
+            <button class="btn" onclick="document.querySelector('#packages').scrollIntoView({behavior:'smooth'})">
+              <i class="fa-solid fa-tag"></i>
+              See packages
+            </button>
+          </div>
+
+          <div class="stats">
+            <div class="pill">
+              <b>✨ Extra animations</b>
+              <span>Hearts • sparkles • transitions</span>
+            </div>
+            <div class="pill">
+              <b>📱 Mobile-first</b>
+              <span>Made for social link clicks</span>
+            </div>
+            <div class="pill">
+              <b>🔒 Private link</b>
+              <span>Optional password protect</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="demo reveal" style="transition-delay:.08s">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px;">
+            <div>
+              <b style="font-family:'Playfair Display',serif; font-size:18px;">Proposal preview</b>
+              <div style="color:var(--muted2); font-weight:900; font-size:12px; margin-top:4px;">Interactive proposal moment</div>
+            </div>
+            <span class="tag"><i class="fa-solid fa-link"></i> Shareable private link</span>
+          </div>
+
+          <div class="phone" id="phoneDemo">
+            <div class="phoneTop">
+              <span><i class="fa-solid fa-signal"></i> LoveMode</span>
+              <span>💗 14 Feb</span>
+            </div>
+            <div class="screen">
+              <div>
+                <div class="badge"><i class="fa-solid fa-heart"></i> Tap a choice</div>
+                <div class="miniH1">Will you be my Valentine?</div>
+                <p class="miniP">
+                  I made a whole website just to ask you this…
+                  because you deserve something unforgettable.
+                </p>
+                <div class="choices">
+                  <div class="choice yes" id="yesBtn">Yes 💘</div>
+                  <div class="choice no" id="noBtn">No (I'm shy) 🙈</div>
+                </div>
+              </div>
+
+              <div class="tiny">
+                <span><i class="fa-solid fa-music"></i> Optional love song</span>
+                <span><i class="fa-solid fa-lock"></i> Password option</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:12px;">
+            <button class="btn" style="flex:1" id="confettiMini">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              Confetti
+            </button>
+            <button class="btn" style="flex:1" id="resetDemo">
+              <i class="fa-solid fa-rotate"></i>
+              Reset
+            </button>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Valentine Countdown Timer -->
+    <div class="wrap countdown-section">
+      <div class="countdown-container reveal">
+        <div class="countdown-title">⏰ Valentine's Day Countdown</div>
+        <div class="countdown-subtitle">Book now to secure your spot before it's too late!</div>
+        
+        <div class="countdown-timer">
+          <div class="countdown-unit">
+            <div class="countdown-number" id="days">00</div>
+            <div class="countdown-label">Days</div>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-number" id="hours">00</div>
+            <div class="countdown-label">Hours</div>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-number" id="minutes">00</div>
+            <div class="countdown-label">Minutes</div>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-number" id="seconds">00</div>
+            <div class="countdown-label">Seconds</div>
+          </div>
+        </div>
+        
+        <div class="guarantee-badge">
+          <i class="fa-solid fa-shield-heart"></i>
+          Limited spots available — Book by <span id="deadlineDate"></span> to guarantee Valentine's Day delivery
+        </div>
+        
+        <div class="countdown-note">
+          ⚡ Same-day delivery available for urgent orders (+50% fee)
+        </div>
+        
+        <button class="btn primary" style="margin-top: 20px;" onclick="openModal('Valentine Rush')">
+          <i class="fa-solid fa-clock"></i> Reserve Your Spot Now
+        </button>
+      </div>
+    </div>
+
+    <!-- Process Steps -->
+    <section id="process">
+      <div class="wrap">
+        <div class="sectionTitle reveal">
+          <h2>Simple 4-Step Process</h2>
+          <p>From idea to magical proposal in hours</p>
+        </div>
+        
+        <div class="process-steps">
+          <div class="step reveal">
+            <div class="step-number">1</div>
+            <div class="step-title">Tell Us Your Story</div>
+            <div class="step-desc">Share names, photos, and your love story via WhatsApp</div>
+          </div>
+          <div class="step reveal" style="transition-delay: 0.1s">
+            <div class="step-number">2</div>
+            <div class="step-title">We Design Magic</div>
+            <div class="step-desc">Create animations & interactive elements in 24 hours</div>
+          </div>
+          <div class="step reveal" style="transition-delay: 0.2s">
+            <div class="step-number">3</div>
+            <div class="step-title">Review & Approve</div>
+            <div class="step-desc">We send preview, you make changes (2 revisions free)</div>
+          </div>
+          <div class="step reveal" style="transition-delay: 0.3s">
+            <div class="step-number">4</div>
+            <div class="step-title">Share & Celebrate</div>
+            <div class="step-desc">Send private link, watch reaction, get your "YES"! 💍</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <div class="sectionTitle reveal">
+          <h2>How It Works</h2>
+          <p>Simple process. Premium result.</p>
+        </div>
+
+        <div class="grid3">
+          <div class="card reveal">
+            <div class="icon"><i class="fa-solid fa-pen-nib"></i></div>
+            <h3>You Tell Me The Vibe</h3>
+            <p>Names, photos, love story, colors, inside jokes, and what you want it to say.</p>
+          </div>
+          <div class="card reveal" style="transition-delay:.06s">
+            <div class="icon"><i class="fa-solid fa-sparkles"></i></div>
+            <h3>I Craft The Magic</h3>
+            <p>Animations, interactive buttons, custom sections — luxury look and feel.</p>
+          </div>
+          <div class="card reveal" style="transition-delay:.12s">
+            <div class="icon"><i class="fa-solid fa-link"></i></div>
+            <h3>You Share The Link</h3>
+            <p>Send it on WhatsApp/IG. They click. They melt. You win 😭💗</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="valentine-site">
+      <div class="wrap">
+        <div class="sectionTitle reveal">
+          <h2>Valentine Love Website (Digital Gift)</h2>
+          <p>Not proposing? Still go crazy. Give them a whole experience.</p>
+        </div>
+
+        <div class="grid3">
+          <div class="card reveal">
+            <div class="icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+            <h3>Luxury love letter</h3>
+            <p>A romantic letter page with your message — styled like a movie scene.</p>
+          </div>
+
+          <div class="card reveal" style="transition-delay:.06s">
+            <div class="icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+            <h3>Memory timeline</h3>
+            <p>How it started → how it's going, with dates, captions, and smooth transitions.</p>
+          </div>
+
+          <div class="card reveal" style="transition-delay:.12s">
+            <div class="icon"><i class="fa-solid fa-gift"></i></div>
+            <h3>Gift reveal button</h3>
+            <p>A surprise button that reveals a gift, voucher, delivery note, or a secret message.</p>
+          </div>
+        </div>
+
+        <div class="cta reveal" style="margin-top:16px;">
+          <div>
+            <h3>Valentine Day link they'll replay 😭💗</h3>
+            <p>
+              Send them a private website with your story, photos, a love letter, and a surprise reveal.
+              Perfect if you can't do a full date — or you want to make the day unforgettable anyway.
+            </p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="#/love-demo"><i class="fa-solid fa-eye"></i> Preview Love Demo</a>
+            <button class="btn primary" onclick="openModal('Valentine Love Website')"><i class="fa-solid fa-heart"></i> Book this</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+      <div class="wrap">
+        <div class="sectionTitle reveal">
+          <h2>Love Stories We've Helped Create</h2>
+          <p>Real proposals, real reactions</p>
+        </div>
+        
+        <div class="testimonials-grid">
+          <div class="testimonial-card reveal">
+            <span class="testimonial-emoji">💍</span>
+            <p class="testimonial-text">"She cried for 10 minutes straight! The website was so special and personal. Best investment ever!"</p>
+            <div class="testimonial-author">- Mark & Sarah, Nairobi</div>
+          </div>
+          <div class="testimonial-card reveal" style="transition-delay: 0.1s">
+            <span class="testimonial-emoji">✨</span>
+            <p class="testimonial-text">"Worth every penny! The animations were magical and she said YES instantly. 10/10 would recommend!"</p>
+            <div class="testimonial-author">- David & Emma, Mombasa</div>
+          </div>
+          <div class="testimonial-card reveal" style="transition-delay: 0.2s">
+            <span class="testimonial-emoji">😭</span>
+            <p class="testimonial-text">"I'm not an emotional guy, but even I teared up when she saw it. The website made our moment unforgettable."</p>
+            <div class="testimonial-author">- James & Lisa, Kisumu</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="packages">
+      <div class="wrap">
+        <div class="sectionTitle reveal">
+          <h2>Packages</h2>
+          <p>Clear offers — easy to buy.</p>
+        </div>
+
+        <div class="grid3">
+          <div class="card reveal">
+            <span class="tag"><i class="fa-solid fa-heart"></i> Starter (Proposal)</span>
+            <div class="price"><b>KES 2,500</b><span>one page</span></div>
+            <ul>
+              <li>Luxury landing + animations</li>
+              <li>Interactive "Yes/No" moment</li>
+              <li>Mobile-first + shareable link</li>
+              <li>Delivered in 24-48 hours</li>
+              <li>Basic customization</li>
+            </ul>
+            <div style="margin-top:14px;">
+              <button class="btn primary" style="width:100%" onclick="openModal('Starter (Proposal)')">
+                <i class="fa-solid fa-bag-shopping"></i> Choose Starter
+              </button>
+            </div>
+          </div>
+
+          <div class="card reveal" style="border-color: rgba(255,59,122,.28); background: linear-gradient(180deg, rgba(255,59,122,.12), rgba(255,255,255,.05));">
+            <span class="tag" style="background: rgba(255,59,122,.12); border-color: rgba(255,59,122,.25);">
+              <i class="fa-solid fa-crown"></i> Premium (Proposal)
+            </span>
+            <div class="price"><b>KES 5,500</b><span>multi-section</span></div>
+            <ul>
+              <li>Everything in Starter</li>
+              <li>Timeline / love story section</li>
+              <li>Gallery slider + captions</li>
+              <li>Custom color theme</li>
+              <li>Music/voice note integration</li>
+              <li>Delivery in 12-24 hours</li>
+            </ul>
+            <div style="margin-top:14px;">
+              <button class="btn primary" style="width:100%" onclick="openModal('Premium (Proposal)')">
+                <i class="fa-solid fa-gem"></i> Choose Premium
+              </button>
+            </div>
+          </div>
+
+          <div class="card reveal">
+            <span class="tag"><i class="fa-solid fa-gift"></i> Valentine Love Website</span>
+            <div class="price"><b>KES 4,500</b><span>digital gift</span></div>
+            <ul>
+              <li>Love letter + memory timeline</li>
+              <li>Gallery + "reasons I love you"</li>
+              <li>Gift reveal button</li>
+              <li>Optional music + private link</li>
+              <li>Same-day delivery option</li>
+              <li>Password protection available</li>
+            </ul>
+            <div style="margin-top:14px;">
+              <button class="btn primary" style="width:100%" onclick="openModal('Valentine Love Website')">
+                <i class="fa-solid fa-heart"></i> Choose Love Website
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="reveal" style="text-align: center; margin-top: 30px;">
+          <p style="color: var(--muted2); font-size: 12px; font-weight: 800; margin-bottom: 10px;">We Accept:</p>
+          <div class="payment-methods">
+            <div class="payment-method">
+              <i class="fa-solid fa-mobile-screen"></i> M-Pesa
+            </div>
+            <div class="payment-method">
+              <i class="fa-brands fa-paypal"></i> PayPal
+            </div>
+            <div class="payment-method">
+              <i class="fa-solid fa-credit-card"></i> Card
+            </div>
+            <div class="payment-method">
+              <i class="fa-solid fa-building-columns"></i> Bank Transfer
+            </div>
+          </div>
+          <p style="color: var(--muted2); font-size: 11px; margin-top: 15px;">
+            *Money-back guarantee: If they don't say YES to your proposal, we'll refund 50% of your payment.
+          </p>
+        </div>
+
+        <div class="cta reveal" id="cta" style="margin-top:30px;">
+          <div>
+            <h3>Want It To Feel Like A Movie?</h3>
+            <p>
+              Tell me their name, your story, and your vibe — I'll design a Valentine website that makes them
+              pause… smile… then scream "YES!" 😭💘
+            </p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn" id="ctaConfetti"><i class="fa-solid fa-wand-magic-sparkles"></i> Test Confetti</button>
+            <button class="btn primary" onclick="openModal('Custom')"><i class="fa-solid fa-heart"></i> Book Now</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Made with 💘 by Cynthia. • © <span id="year"></span> Cynthia Makes Magic • 
+      <span style="color: var(--mint); font-weight: 800;">WhatsApp: +254 722 177 361</span>
+    </footer>
+  </main>
+
+  <!-- PAGE 2: Love Demo (inside same file) -->
+  <main id="page-love" class="page">
+    <div class="wrap" style="padding-top:26px;">
+      <div class="cta reveal" style="margin-top:0;">
+        <div>
+          <h3>Love Website Demo 💗</h3>
+          <p>
+            This is the "digital gift website" vibe: love letter, memories, reasons, and a surprise reveal.
+            (All fully customizable with names/photos/colors.)
+          </p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="#/"><i class="fa-solid fa-arrow-left"></i> Back to main</a>
+          <button class="btn primary" onclick="openModal('Valentine Love Website')"><i class="fa-solid fa-heart"></i> Book this</button>
+        </div>
+      </div>
+
+      <section>
+        <div class="grid3">
+          <div class="card reveal">
+            <div class="icon"><i class="fa-solid fa-feather"></i></div>
+            <h3>Love Letter</h3>
+            <p style="margin-top:10px; line-height:1.8;">
+              My love… today I didn't want to send a boring text.  
+              I wanted you to feel how much you mean to me — in a way you can replay anytime.  
+              <br><br>
+              You're my peace, my favorite thought, my soft place to land.  
+              Happy Valentine's Day 💘
+            </p>
+          </div>
+
+          <div class="card reveal" style="transition-delay:.06s">
+            <div class="icon"><i class="fa-solid fa-hourglass-half"></i></div>
+            <h3>Memory Timeline</h3>
+            <ul style="margin-top:10px;">
+              <li><b>Day 1:</b> We met and I felt something shift.</li>
+              <li><b>First date:</b> I laughed so much my cheeks hurt.</li>
+              <li><b>First "I miss you":</b> That's when I knew… it's real.</li>
+              <li><b>Today:</b> Still choosing you. Every day.</li>
+            </ul>
+          </div>
+
+          <div class="card reveal" style="transition-delay:.12s">
+            <div class="icon"><i class="fa-solid fa-layer-group"></i></div>
+            <h3>Reasons I Love You</h3>
+            <div style="display:grid; gap:10px; margin-top:12px;">
+              <div class="pill" style="min-width:unset;"><b>1) Your kindness</b><span>It changes rooms.</span></div>
+              <div class="pill" style="min-width:unset;"><b>2) Your laugh</b><span>Instant dopamine.</span></div>
+              <div class="pill" style="min-width:unset;"><b>3) Your heart</b><span>Soft but strong.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="cta reveal">
+          <div>
+            <h3>Gift Reveal 🎁</h3>
+            <p>Tap the button for the surprise message. In real client work, this can reveal a voucher, delivery details, or a secret note.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn" id="giftReveal"><i class="fa-solid fa-gift"></i> Reveal gift</button>
+            <button class="btn primary" id="loveConfetti"><i class="fa-solid fa-wand-magic-sparkles"></i> Celebration</button>
+          </div>
+        </div>
+
+        <div class="card reveal" id="giftCard" style="margin-top:14px; display:none;">
+          <div class="icon"><i class="fa-solid fa-heart"></i></div>
+          <h3 style="margin-top:10px;">Surprise 💗</h3>
+          <p style="margin-top:6px; line-height:1.8;">
+            I owe you a hug that lasts longer than the whole day 😭  
+            Tonight… check your phone.  
+            <br><br>
+            <b>Dress code:</b> Cute.  
+            <b>Time:</b> 7:00 PM.  
+            <b>Message:</b> "I'll handle everything." 💘
+          </p>
+        </div>
+      </section>
+
+      <footer>
+        Demo page • © <span class="year"></span> Cynthia Makes Magic
+      </footer>
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div class="modalBack" id="modalBack" role="dialog" aria-modal="true" aria-label="Create proposal">
+    <div class="modal">
+      <div class="modalHead">
+        <b>Request a Valentine website 💘</b>
+        <button class="btn" id="closeModalBtn"><i class="fa-solid fa-xmark"></i> Close</button>
+      </div>
+      <div class="modalBody">
+        <div class="formGrid">
+          <div class="field">
+            <label>Your name</label>
+            <input id="yourName" placeholder="e.g., Cynthia" />
+          </div>
+          <div class="field">
+            <label>Their name</label>
+            <input id="theirName" placeholder="e.g., Alex" />
+          </div>
+          <div class="field">
+            <label>Your email</label>
+            <input id="email" type="email" placeholder="you@example.com" />
+          </div>
+          <div class="field">
+            <label>Your WhatsApp</label>
+            <input id="whatsapp" placeholder="+254 7XX XXX XXX" />
+          </div>
+          <div class="field">
+            <label>Package</label>
+            <select id="package">
+              <option>Starter (Proposal) - KES 2,500</option>
+              <option>Premium (Proposal) - KES 5,500</option>
+              <option>Valentine Love Website - KES 4,500</option>
+              <option>Custom (Contact for quote)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Delivery</label>
+            <select id="delivery">
+              <option>Standard (24–48 hrs)</option>
+              <option>Rush (same-day) +50%</option>
+              <option>Emergency (few hours) +100%</option>
+            </select>
+          </div>
+          <div class="field" style="grid-column:1/-1;">
+            <label>Your Love Story & Vision</label>
+            <textarea id="message" placeholder="Tell me your story, mood, colors, special moments, inside jokes, and what you want the website to say/do..."></textarea>
+          </div>
+          <div class="field" style="grid-column:1/-1;">
+            <label>Special Requests (Optional)</label>
+            <textarea id="specialRequests" placeholder="Music, specific animations, password protection, etc..."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modalFoot">
+        <span>We'll contact you within 1 hour to confirm details and start creating!</span>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn" onclick="trackSubmission()">
+            <i class="fa-solid fa-paper-plane"></i>
+            Submit Request
+          </button>
+          <button class="btn primary" id="copyRequestBtn">
+            <i class="fa-solid fa-copy"></i>
+            Copy Request Text
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp Floating -->
+  <a class="waFloat" id="waFloat" href="#" target="_blank" rel="noopener">
+    <span class="waBubble"><i class="fa-brands fa-whatsapp"></i>&nbsp; Instant Deal</span>
+    <div class="waBtn" title="WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </div>
+  </a>
+
+  <script>
+    const WHATSAPP_NUMBER = "254722177361"; // Replace with your actual number
+    const WA_DEFAULT_TEXT = "Hi Cynthia! I want a Valentine website 💘. Please share packages + timeline.";
+
+    // ------- Floating hearts generator -------
+    const heartsWrap = document.getElementById("hearts");
+    const heartEmojis = ["💗","💖","💘","💕","💞","💝","💓","💟","🌹","✨"];
+    function spawnHeart(){
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
+      const left = Math.random()*100;
+      const size = 14 + Math.random()*18;
+      const dur = 9 + Math.random()*10;
+      h.style.left = left + "vw";
+      h.style.fontSize = size + "px";
+      h.style.animationDuration = dur + "s";
+      h.style.opacity = (0.55 + Math.random()*0.45).toFixed(2);
+      heartsWrap.appendChild(h);
+      setTimeout(()=>h.remove(), dur*1000);
+    }
+    setInterval(spawnHeart, 260);
+
+    // ------- Countdown Timer -------
+    function updateCountdown() {
+      const valentinesDay = new Date(new Date().getFullYear(), 1, 14); // February 14
+      if (new Date() > valentinesDay) {
+        valentinesDay.setFullYear(valentinesDay.getFullYear() + 1);
+      }
+      
+      // Set deadline 2 days before Valentine's
+      const deadline = new Date(valentinesDay);
+      deadline.setDate(deadline.getDate() - 2);
+      
+      // Format deadline date
+      const deadlineDateEl = document.getElementById('deadlineDate');
+      if (deadlineDateEl) {
+        deadlineDateEl.textContent = deadline.toLocaleDateString('en-US', { 
+          month: 'long', 
+          day: 'numeric' 
+        });
+      }
+      
+      const now = new Date();
+      const diff = valentinesDay - now;
+      
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      
+      document.getElementById("days").textContent = days.toString().padStart(2, '0');
+      document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+      document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+      document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+    }
+    
+    setInterval(updateCountdown, 1000);
+    updateCountdown(); // Initial call
+
+    // ------- Reveal on scroll -------
+    const revealEls = Array.from(document.querySelectorAll(".reveal"));
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add("show");
+      });
+    }, {threshold: .12});
+    revealEls.forEach(el=>io.observe(el));
+
+    // ------- Confetti helpers -------
+    function burstConfetti(){
+      if(typeof confetti !== "function") return;
+      const count = 120;
+      confetti({ particleCount: count, spread: 70, origin: { y: 0.75 } });
+      confetti({ particleCount: Math.floor(count * 0.6), spread: 110, origin: { y: 0.75 } });
+    }
+
+    // ------- Proposal demo interactions -------
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const resetDemo = document.getElementById("resetDemo");
+    const phoneDemo = document.getElementById("phoneDemo");
+    let noClicks = 0;
+
+    yesBtn?.addEventListener("click", ()=>{
+      burstConfetti();
+      yesBtn.textContent = "YESSS 💍💘";
+      yesBtn.style.transform = "translateY(-2px) scale(1.02)";
+      yesBtn.style.borderColor = "rgba(73,242,194,.45)";
+    });
+
+    noBtn?.addEventListener("click", ()=>{
+      noClicks++;
+      const lines = [
+        "No (I'm shy) 🙈",
+        "Wait… you sure? 😭",
+        "Okay but… I made a WHOLE website 😩",
+        "One more chance? 🥺",
+        "Nah you're playing 😌 tap YES",
+        "I'll pretend I didn't see that 😭"
+      ];
+      noBtn.textContent = lines[Math.min(noClicks, lines.length-1)];
+      noBtn.style.transform = "translateY(-2px)";
+      const scale = 1 + Math.min(0.35, noClicks * 0.06);
+      yesBtn.style.transform = `scale(${scale})`;
+      if(noClicks >= 3) burstConfetti();
+    });
+
+    resetDemo?.addEventListener("click", ()=>{
+      noClicks = 0;
+      yesBtn.textContent = "Yes 💘";
+      noBtn.textContent = "No (I'm shy) 🙈";
+      yesBtn.style.transform = "";
+      noBtn.style.transform = "";
+      yesBtn.style.borderColor = "rgba(255,59,122,.35)";
+    });
+
+    document.getElementById("confettiMini")?.addEventListener("click", burstConfetti);
+    document.getElementById("ctaConfetti")?.addEventListener("click", burstConfetti);
+    document.getElementById("sparkBtn")?.addEventListener("click", ()=>{
+      burstConfetti();
+      phoneDemo?.animate(
+        [{transform:"translateY(0)"},{transform:"translateY(-2px)"},{transform:"translateY(0)"}],
+        {duration:450, easing:"ease-out"}
+      );
+    });
+
+    document.getElementById("heroCta")?.addEventListener("click", ()=> openModal("Premium (Proposal)"));
+
+    // ------- Love demo page interactions -------
+    document.getElementById("loveConfetti")?.addEventListener("click", burstConfetti);
+    document.getElementById("giftReveal")?.addEventListener("click", ()=>{
+      const giftCard = document.getElementById("giftCard");
+      giftCard.style.display = "block";
+      giftCard.scrollIntoView({behavior:"smooth", block:"center"});
+      burstConfetti();
+    });
+
+    // ------- Modal -------
+    const modalBack = document.getElementById("modalBack");
+    const openModalBtn = document.getElementById("openModalBtn");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+
+    function openModal(pkg){
+      modalBack.style.display = "flex";
+      document.body.style.overflow = "hidden";
+      document.getElementById("package").value = pkg || "Premium (Proposal)";
+      burstConfetti();
+      setTimeout(()=>document.getElementById("yourName").focus(), 150);
+    }
+    window.openModal = openModal;
+
+    function closeModal(){
+      modalBack.style.display = "none";
+      document.body.style.overflow = "";
+    }
+    openModalBtn?.addEventListener("click", ()=>openModal("Premium (Proposal)"));
+    closeModalBtn?.addEventListener("click", closeModal);
+    modalBack?.addEventListener("click", (e)=>{ if(e.target === modalBack) closeModal(); });
+    window.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeModal(); });
+
+    // Track form submission
+    function trackSubmission() {
+      const pkg = document.getElementById("package").value;
+      const name = document.getElementById("yourName").value || "potential client";
+      
+      console.log(`New submission: ${name} selected ${pkg}`);
+      
+      alert(`Thank you ${name}! We've received your request for the ${pkg}. We'll contact you within 1 hour to start creating your magical proposal website!`);
+      
+      closeModal();
+      
+      // Reset form
+      document.getElementById("yourName").value = "";
+      document.getElementById("theirName").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("whatsapp").value = "";
+      document.getElementById("message").value = "";
+      document.getElementById("specialRequests").value = "";
+    }
+
+    // Copy request text for WhatsApp/email
+    document.getElementById("copyRequestBtn")?.addEventListener("click", async ()=>{
+      const yourName = document.getElementById("yourName").value || "(your name)";
+      const theirName = document.getElementById("theirName").value || "(their name)";
+      const email = document.getElementById("email").value || "(your email)";
+      const whatsapp = document.getElementById("whatsapp").value || "(your WhatsApp)";
+      const pkg = document.getElementById("package").value;
+      const delivery = document.getElementById("delivery").value;
+      const msg = document.getElementById("message").value || "(your love story here)";
+      const specialRequests = document.getElementById("specialRequests").value || "(none)";
+
+      const text =
+`💘 Valentine Proposal Website Request 💘
+
+• My Name: ${yourName}
+• Their Name: ${theirName}
+• Email: ${email}
+• WhatsApp: ${whatsapp}
+• Package: ${pkg}
+• Delivery: ${delivery}
+• Our Love Story & Vision:
+${msg}
+• Special Requests:
+${specialRequests}
+
+Please contact me to discuss details and payment.`;
+
+      try{
+        await navigator.clipboard.writeText(text);
+        burstConfetti();
+        const btn = document.getElementById("copyRequestBtn");
+        const old = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        setTimeout(()=> btn.innerHTML = old, 1400);
+      }catch(err){
+        alert("Copy failed. You can manually copy from the form.");
+      }
+    });
+
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.querySelectorAll(".year").forEach(el => el.textContent = new Date().getFullYear());
+
+    // ------- WhatsApp link wiring -------
+    const waFloat = document.getElementById("waFloat");
+    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WA_DEFAULT_TEXT)}`;
+    waFloat.href = waUrl;
+
+    // ------- Mobile menu toggle -------
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobileMenu");
+    function toggleMenu(force){
+      const open = (force !== undefined) ? force : (mobileMenu.style.display !== "block");
+      mobileMenu.style.display = open ? "block" : "none";
+      hamburger.querySelector("i").className = open ? "fa-solid fa-xmark" : "fa-solid fa-bars";
+    }
+    hamburger?.addEventListener("click", ()=>toggleMenu());
+    mobileMenu?.addEventListener("click", (e)=>{
+      const a = e.target.closest("a");
+      if(a) toggleMenu(false);
+    });
+
+    // ------- Single-file page routing via hash -------
+    const pageLanding = document.getElementById("page-landing");
+    const pageLove = document.getElementById("page-love");
+
+    function showPage(which){
+      pageLanding.classList.remove("active");
+      pageLove.classList.remove("active");
+      if(which === "love"){
+        pageLove.classList.add("active");
+        window.scrollTo({top:0, behavior:"instant"});
+      }else{
+        pageLanding.classList.add("active");
+      }
+    }
+
+    function handleRoute(){
+      const hash = (location.hash || "#/").toLowerCase();
+      if(hash.startsWith("#/love-demo")){
+        showPage("love");
+      }else{
+        showPage("landing");
+        const parts = hash.split("#/#");
+        if(parts.length === 2){
+          const anchorId = parts[1];
+          const el = document.getElementById(anchorId);
+          if(el) setTimeout(()=> el.scrollIntoView({behavior:"smooth"}), 120);
+        }
+      }
+    }
+    window.addEventListener("hashchange", handleRoute);
+    handleRoute();
+
+    // Smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        if(this.getAttribute('href').startsWith('#/')) return;
+        
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if(targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if(targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Fun: small confetti on load
+    window.addEventListener("load", ()=>{
+      setTimeout(()=> {
+        if(typeof confetti === "function"){
+          confetti({particleCount: 70, spread: 80, origin:{y:.2}});
+        }
+      }, 600);
+      
+      // Add some random floating hearts on load
+      for(let i = 0; i < 15; i++) {
+        setTimeout(spawnHeart, i * 200);
+      }
+    });
+  </script>
+</body>
+</html>
