@@ -57,7 +57,7 @@
     .noise{
       position:fixed; inset:0;
       pointer-events:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
       mix-blend-mode:overlay;
       opacity:.45;
     }
@@ -762,7 +762,7 @@
       font-weight:800;
     }
 
-    /* WhatsApp floating button */
+    /* WhatsApp floating button - FIXED FOR SMALL SCREENS */
     .waFloat{
       position:fixed;
       right:16px;
@@ -789,9 +789,11 @@
     }
     @keyframes pop{from{opacity:0; transform: translateY(6px);} to{opacity:1; transform: translateY(0);} }
     .waBtn{
-      width:54px; height:54px;
+      width:54px;
+      height:54px;
       border-radius: 18px;
-      display:grid; place-items:center;
+      display:grid;
+      place-items:center;
       border:1px solid rgba(255,255,255,.16);
       background: linear-gradient(180deg, rgba(73,242,194,.22), rgba(255,255,255,.06));
       box-shadow: 0 18px 50px rgba(0,0,0,.35);
@@ -800,20 +802,63 @@
       position:relative;
       overflow:hidden;
       cursor:pointer;
+      transition: transform 0.2s ease;
     }
     .waBtn:before{
       content:"";
-      position:absolute; inset:-70%;
+      position:absolute;
+      inset:-70%;
       background: conic-gradient(from 180deg, rgba(73,242,194,.0), rgba(73,242,194,.28), rgba(255,59,122,.18), rgba(255,211,107,.14), rgba(73,242,194,.0));
       animation: spin 8s linear infinite;
       opacity:.75;
       pointer-events:none;
     }
     .waBtn i{position:relative;}
-    .waBtn:hover{transform: translateY(-2px);}
+    .waBtn:hover{transform: translateY(-2px) scale(1.05);}
 
-    @media (min-width: 520px){
-      .waBubble{display:inline-flex;}
+    /* Make WhatsApp button always visible on mobile */
+    @media (max-width: 768px) {
+      .waFloat {
+        right: 12px;
+        bottom: 70px; /* Position it higher to avoid mobile browser UI */
+      }
+      .waBtn {
+        width: 60px; /* Slightly larger for mobile */
+        height: 60px;
+        border-radius: 20px;
+      }
+      .waBubble {
+        display: inline-flex !important; /* Force show on mobile */
+        position: absolute;
+        right: 70px;
+        white-space: nowrap;
+        animation: none;
+        opacity: 0.9;
+      }
+    }
+
+    /* Extra small screens */
+    @media (max-width: 380px) {
+      .waFloat {
+        right: 8px;
+        bottom: 60px;
+      }
+      .waBtn {
+        width: 56px;
+        height: 56px;
+      }
+      .waBubble {
+        right: 65px;
+        font-size: 11px;
+        padding: 8px 10px;
+      }
+    }
+
+    /* Show bubble on hover for larger screens */
+    @media (min-width: 769px) {
+      .waFloat:hover .waBubble {
+        display: inline-flex;
+      }
     }
 
     /* Reveal animations */
@@ -864,6 +909,13 @@
       
       .step {min-width: 100%;}
       .process-steps {flex-direction: column; gap: 25px;}
+      
+      /* Ensure WhatsApp button is always visible */
+      .waFloat {
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
     }
     @media (max-width: 380px){
       h1{font-size:32px;}
@@ -1462,17 +1514,38 @@
     </div>
   </div>
 
-  <!-- WhatsApp Floating -->
-  <a class="waFloat" id="waFloat" href="#" target="_blank" rel="noopener">
+  <!-- WhatsApp Floating Button - FIXED -->
+  <a class="waFloat" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="Contact on WhatsApp">
     <span class="waBubble"><i class="fa-brands fa-whatsapp"></i>&nbsp; Instant Deal</span>
-    <div class="waBtn" title="WhatsApp">
+    <div class="waBtn" title="WhatsApp Cynthia">
       <i class="fa-brands fa-whatsapp"></i>
     </div>
   </a>
 
   <script>
-    const WHATSAPP_NUMBER = "254722177361"; // Replace with your actual number
+    const WHATSAPP_NUMBER = "254722177361";
     const WA_DEFAULT_TEXT = "Hi Cynthia! I want a Valentine website 💘. Please share packages + timeline.";
+
+    // ------- WhatsApp link wiring -------
+    const waFloat = document.getElementById("waFloat");
+    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WA_DEFAULT_TEXT)}`;
+    waFloat.href = waUrl;
+
+    // Force WhatsApp button to be visible on all devices
+    function ensureWhatsAppVisible() {
+      const waFloatEl = document.getElementById('waFloat');
+      if (waFloatEl) {
+        waFloatEl.style.display = 'flex';
+        waFloatEl.style.opacity = '1';
+        waFloatEl.style.visibility = 'visible';
+        waFloatEl.style.zIndex = '120';
+      }
+    }
+
+    // Make sure WhatsApp button is always clickable on mobile
+    document.addEventListener('touchstart', function() {
+      ensureWhatsAppVisible();
+    });
 
     // ------- Floating hearts generator -------
     const heartsWrap = document.getElementById("hearts");
@@ -1495,16 +1568,14 @@
 
     // ------- Countdown Timer -------
     function updateCountdown() {
-      const valentinesDay = new Date(new Date().getFullYear(), 1, 14); // February 14
+      const valentinesDay = new Date(new Date().getFullYear(), 1, 14);
       if (new Date() > valentinesDay) {
         valentinesDay.setFullYear(valentinesDay.getFullYear() + 1);
       }
       
-      // Set deadline 2 days before Valentine's
       const deadline = new Date(valentinesDay);
       deadline.setDate(deadline.getDate() - 2);
       
-      // Format deadline date
       const deadlineDateEl = document.getElementById('deadlineDate');
       if (deadlineDateEl) {
         deadlineDateEl.textContent = deadline.toLocaleDateString('en-US', { 
@@ -1528,7 +1599,7 @@
     }
     
     setInterval(updateCountdown, 1000);
-    updateCountdown(); // Initial call
+    updateCountdown();
 
     // ------- Reveal on scroll -------
     const revealEls = Array.from(document.querySelectorAll(".reveal"));
@@ -1694,11 +1765,6 @@ Please contact me to discuss details and payment.`;
     document.getElementById("year").textContent = new Date().getFullYear();
     document.querySelectorAll(".year").forEach(el => el.textContent = new Date().getFullYear());
 
-    // ------- WhatsApp link wiring -------
-    const waFloat = document.getElementById("waFloat");
-    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WA_DEFAULT_TEXT)}`;
-    waFloat.href = waUrl;
-
     // ------- Mobile menu toggle -------
     const hamburger = document.getElementById("hamburger");
     const mobileMenu = document.getElementById("mobileMenu");
@@ -1776,7 +1842,13 @@ Please contact me to discuss details and payment.`;
       for(let i = 0; i < 15; i++) {
         setTimeout(spawnHeart, i * 200);
       }
+      
+      // Ensure WhatsApp button is visible
+      ensureWhatsAppVisible();
     });
+
+    // Ensure WhatsApp button stays visible on resize
+    window.addEventListener('resize', ensureWhatsAppVisible);
   </script>
 </body>
 </html>
